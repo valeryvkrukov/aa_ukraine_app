@@ -13,10 +13,11 @@
         android:theme="@style/Theme.AAUkraine"
         android:name=".AAUkraineApplication"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.AAUkraine">
+            android:theme="@style/Theme.AAUkraine.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -67,6 +67,7 @@ dependencies {
     implementation(project(":core-ui"))
     implementation(project(":feature-main"))
     implementation(project(":feature-main-navigation"))
+    implementation(libs.androidx.appcompat)
 
 
     // Core Android dependencies
@@ -90,6 +91,9 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
+    // Splash Screen
+    implementation(libs.androidx.core.splashscreen)
 
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
