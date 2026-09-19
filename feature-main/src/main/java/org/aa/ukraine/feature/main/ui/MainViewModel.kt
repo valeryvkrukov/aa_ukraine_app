@@ -1,0 +1,40 @@
+package org.aa.ukraine.feature.main.ui
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import org.aa.ukraine.core.data.MainRepository
+import org.aa.ukraine.feature.main.ui.MainUiState.Error
+import org.aa.ukraine.feature.main.ui.MainUiState.Loading
+import org.aa.ukraine.feature.main.ui.MainUiState.Success
+import javax.inject.Inject
+
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val mainDataRepository: MainRepository,
+
+) : ViewModel() {
+
+    val uiState: StateFlow<MainUiState> = mainDataRepository
+        .mainDatas.map<List<String>, MainUiState> { Success(data = it) }
+        .catch { emit(Error(it)) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Loading)
+
+    fun addMain(name: String) {
+        viewModelScope.launch {
+            mainDataRepository.add(name)
+        }
+    }
+}
+
+sealed interface MainUiState {
+    object Loading : MainUiState
+    data class Error(val throwable: Throwable) : MainUiState
+    data class Success(val data: List<String>) : MainUiState
+}
