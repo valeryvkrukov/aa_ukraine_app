@@ -35,6 +35,8 @@ kotlin {
 }
 
 dependencies {
+    implementation(project(":core-database"))
+
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -46,6 +48,7 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons)
 
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)

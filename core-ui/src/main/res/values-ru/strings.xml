@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meeting_online_meetup_txt">Онлайн встреча (Zoom / Интернет)</string>
+    <string name="meeting_amoung_friends_txt">В кругу друзей</string>
+    <string name="meeting_speakers_txt">Спикерская</string>
+    <string name="meeting_join_a_zoom_txt">Войти в Zoom встречу</string>
+    <string name="meeting_show_on_map_txt">Показать на карте</string>
+</resources>
