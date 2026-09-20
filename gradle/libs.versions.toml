@@ -22,6 +22,8 @@ androidxCoreSplash = "1.2.0"
 androidxMaterialIconsExt = "1.7.8"
 appcompat = "1.8.0"
 navigationCompose = "2.10.1"
+espressoCore = "3.7.0"
+material = "1.14.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
@@ -57,6 +59,8 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-compose-material-icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidxMaterialIconsExt" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

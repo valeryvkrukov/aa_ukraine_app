@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="day_mon">Понеділок</string>
+    <string name="day_tue">Вівторок</string>
+    <string name="day_wed">Середа</string>
+    <string name="day_thu">Четвер</string>
+    <string name="day_fri">П\'ятниця</string>
+    <string name="day_sat">Субота</string>
+    <string name="day_sun">Неділя</string>
+</resources>

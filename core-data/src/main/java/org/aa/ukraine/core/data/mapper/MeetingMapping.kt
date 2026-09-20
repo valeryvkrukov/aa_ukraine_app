@@ -18,14 +18,16 @@ fun MeetingEntity.asExternalModel() = Meeting(
 )
 
 // Mapping from a pure UI model to a Room database entity
-fun Meeting.asEntity() = MeetingEntity(
-    id = id,
-    title = title,
-    time = time,
-    daysOfWeek = daysOfWeek,
-    type = type.name, // Записываем Enum как строку
-    city = city,
-    address = address,
-    link = link,
-    additionalInfo = additionalInfo
-)
+fun Meeting.asEntity(): MeetingEntity {
+    return MeetingEntity(
+        id = this.id,
+        title = this.title,
+        time = this.time,
+        daysOfWeek = this.daysOfWeek,
+        type = this.type.name,
+        city = this.city,
+        address = this.address,
+        link = this.link,
+        additionalInfo = this.additionalInfo
+    )
+}

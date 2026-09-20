@@ -4,30 +4,18 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import org.aa.ukraine.core.data.MainRepository
-import org.aa.ukraine.core.data.DefaultMainRepository
-import javax.inject.Inject
+import org.aa.ukraine.core.data.MeetingRepository
+import org.aa.ukraine.core.data.OfflineFirstMeetingRepository
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface DataModule {
+abstract class DataModule {
 
-    @Singleton
     @Binds
-    fun bindsMainRepository(
-        mainDataRepository: DefaultMainRepository
-    ): MainRepository
+    @Singleton
+    @Suppress("UNUSED_PARAMETER")
+    abstract fun bindMeetingRepository(
+        offlineFirstMeetingRepository: OfflineFirstMeetingRepository
+    ): MeetingRepository
 }
-
-class FakeMainRepository @Inject constructor() : MainRepository {
-    override val mainDatas: Flow<List<String>> = flowOf(fakeMains)
-
-    override suspend fun add(name: String) {
-        throw NotImplementedError()
-    }
-}
-
-val fakeMains = listOf("One", "Two", "Three")

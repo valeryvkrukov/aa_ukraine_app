@@ -2,13 +2,15 @@ package org.aa.ukraine.data
 
 import org.aa.ukraine.core.data.mapper.asEntity
 import org.aa.ukraine.core.data.mapper.asExternalModel
+import org.aa.ukraine.core.data.util.TestData
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class MeetingMappingTest {
     @Test
     fun meetingEntity_canBeMapped_toExternalModel() {
-        val entity = TestData.testMeetingEntity
+        val originalModel = TestData.testExternalMeeting.first()
+        val entity = originalModel.asEntity()
         val externalModel = entity.asExternalModel()
 
         assertEquals(entity.id, externalModel.id)
@@ -21,7 +23,7 @@ class MeetingMappingTest {
 
     @Test
     fun externalMeeting_canBeMapped_toDatabaseEntity() {
-        val externalModel = TestData.testExternalMeeting
+        val externalModel = TestData.testExternalMeeting.last()
         val entity = externalModel.asEntity()
 
         assertEquals(externalModel.id, entity.id)

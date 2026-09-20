@@ -67,6 +67,8 @@ dependencies {
     implementation(project(":core-ui"))
     implementation(project(":feature-main"))
     implementation(project(":feature-main-navigation"))
+    implementation(project(":feature-schedule"))
+    implementation(project(":feature-schedule-navigation"))
     implementation(libs.androidx.appcompat)
 
 

@@ -1,33 +1,16 @@
 package org.aa.ukraine.feature.main.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
-import org.aa.ukraine.core.data.MainRepository
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val mainDataRepository: MainRepository,
-
-    ) : ViewModel() {
-
-    val uiState: StateFlow<MainUiState> = mainDataRepository
-        .mainDatas.map<List<String>, MainUiState> { MainUiState.Success(data = it) }
-        .catch { emit(MainUiState.Error(it)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MainUiState.Loading)
-
-    fun addMain(name: String) {
-        viewModelScope.launch {
-            mainDataRepository.add(name)
-        }
-    }
+class MainViewModel @Inject constructor() : ViewModel() {
+    private val _uiState = MutableStateFlow<MainUiState>(MainUiState.Success(data = emptyList()))
+    val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 }
 
 sealed interface MainUiState {

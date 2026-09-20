@@ -38,11 +38,11 @@ import org.aa.ukraine.core.ui.R
 @Composable
 fun MeetingCard(
     meeting: Meeting,
-    isSpeakerFormat: Boolean,       // "Speaker's" Flag
-    isInCircleOfFriends: Boolean,   // "Among Friends" Flag
-    language: String,               // Language (e.g., "UA" or "EN")
-    onActionClick: () -> Unit,      // Click the Map/Zoom button
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isSpeakerFormat: Boolean = false,       // "Speaker's" Flag
+    isInCircleOfFriends: Boolean = false,   // "Among Friends" Flag
+    language: String = "UA",                // Click the Map/Zoom button
+    onActionClick: () -> Unit               // Language (e.g., "UA" or "EN")
 ) {
     Card(
         modifier = modifier

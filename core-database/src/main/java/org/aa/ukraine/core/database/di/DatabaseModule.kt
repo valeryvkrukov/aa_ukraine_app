@@ -8,24 +8,25 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.aa.ukraine.core.database.AppDatabase
-import org.aa.ukraine.core.database.MainDao
+import org.aa.ukraine.core.database.dao.MeetingDao
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
     @Provides
-    fun provideMainDao(appDatabase: AppDatabase): MainDao {
-        return appDatabase.mainDataDao()
-    }
-
-    @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return Room.databaseBuilder(
             appContext,
             AppDatabase::class.java,
-            "Main"
+            "aa_ukraine_database.db"
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMeetingDao(appDatabase: AppDatabase): MeetingDao {
+        return appDatabase.meetingDao()
     }
 }

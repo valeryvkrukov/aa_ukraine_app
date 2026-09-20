@@ -11,7 +11,6 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -38,6 +37,7 @@ import org.aa.ukraine.feature.main.ui.viewmodel.MainViewModel
 
 @Composable
 fun MainScreen(
+    onScheduleClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
@@ -45,7 +45,7 @@ fun MainScreen(
     if (items is MainUiState.Success) {
         MainScreen(
             items = (items as MainUiState.Success).data,
-            onSave = viewModel::addMain,
+            onScheduleClick = onScheduleClick,
             modifier = modifier,
         )
     }
@@ -54,7 +54,7 @@ fun MainScreen(
 @Composable
 internal fun MainScreen(
     items: List<String>,
-    onSave: (name: String) -> Unit,
+    onScheduleClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -80,7 +80,12 @@ internal fun MainScreen(
         bottomBar = {
             AppBottomBar {
                 // Icons for switching application sections
-                IconButton(onClick = { /* To the schedule */ }) { Icon(Icons.Default.DateRange, stringResource(R.string.app_bottombar_groups)) }
+                IconButton(onClick = { onScheduleClick() }) {
+                    Icon(
+                        Icons.Default.DateRange,
+                        stringResource(R.string.app_bottombar_groups)
+                    )
+                }
                 IconButton(onClick = { /* To the diary */ }) { Icon(Icons.Default.Book, stringResource(R.string.app_bottombar_diary)) }
             }
         }
@@ -99,15 +104,7 @@ internal fun MainScreen(
                     label = { Text("New Item") },
                     modifier = Modifier.weight(1f),
                 )
-                Button(
-                    onClick = {
-                        onSave(name)
-                        name = ""
-                    },
-                    modifier = Modifier.padding(start = 8.dp),
-                ) {
-                    Text("Add")
-                }
+
             }
             LazyColumn {
                 items(items) { item ->
@@ -122,7 +119,11 @@ internal fun MainScreen(
 @Composable
 private fun DefaultPreview() {
     AAUkraineTheme {
-        MainScreen(listOf("Compose", "Room", "Kotlin"), onSave = {})
+        /*MainScreen(
+            listOf("Compose", "Room", "Kotlin"),
+            onScheduleClick = TODO(),
+            modifier = TODO()
+        )*/
     }
 }
 
@@ -130,6 +131,10 @@ private fun DefaultPreview() {
 @Composable
 private fun PortraitPreview() {
     AAUkraineTheme {
-        MainScreen(listOf("Compose", "Room", "Kotlin"), onSave = {})
+        /*MainScreen(
+            listOf("Compose", "Room", "Kotlin"),
+            onScheduleClick = TODO(),
+            modifier = TODO()
+        )*/
     }
 }
