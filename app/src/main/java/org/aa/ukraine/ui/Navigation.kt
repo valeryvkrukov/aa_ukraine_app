@@ -1,29 +1,37 @@
 package org.aa.ukraine.ui
 
-import org.aa.ukraine.feature.main.navigation.Main
-import org.aa.ukraine.feature.main.navigation.MainEntryProvider
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberNavBackStack
-import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
-import androidx.navigation3.ui.NavDisplay
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import org.aa.ukraine.core.ui.screen.AnimatedSplashScreen
+import org.aa.ukraine.feature.main.ui.screen.MainScreen
+
+object Screen {
+    const val SPLASH = "splash_screen"
+    const val MAIN = "main_screen"
+}
 
 @Composable
 fun MainNavigation() {
+    val navController = rememberNavController()
 
-    val backStack = rememberNavBackStack(Main)
-
-    NavDisplay(
-        backStack = backStack,
-        onBack = { backStack.removeLastOrNull() },
-        entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator(),
-
-        ),
-        entryProvider = entryProvider {
-            MainEntryProvider(backStack = backStack)
+    NavHost(
+        navController = navController,
+        startDestination = Screen.SPLASH, // Start strictly from the Splash screen
+    ) {
+        // 1. Animated splash screen
+        composable(route = Screen.SPLASH) {
+            AnimatedSplashScreen {
+                navController.navigate(Screen.MAIN) {
+                    popUpTo(Screen.SPLASH) { inclusive = true }
+                }
+            }
         }
-    )
+
+        // 2. The main screen of the application
+        composable(route = Screen.MAIN) {
+            MainScreen()
+        }
+    }
 }

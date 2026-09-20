@@ -8,9 +8,9 @@ plugins {
 
 android {
     namespace = "org.aa.ukraine.feature.main.navigation"
-    compileSdk = 37
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 23
+        minSdk = libs.versions.minSdk.get().toInt()
         consumerProguardFiles("consumer-rules.pro")
     }
     buildFeatures {
@@ -35,5 +35,5 @@ kotlin {
 dependencies {
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation.compose)
 }

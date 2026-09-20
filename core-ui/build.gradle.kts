@@ -7,10 +7,10 @@ plugins {
 
 android {
     namespace = "org.aa.ukraine.core.ui"
-    compileSdk = 37
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 23
+        minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -19,7 +19,6 @@ android {
         compose = true
         aidl = false
         buildConfig = false
-        renderScript = false
         shaders = false
     }
 

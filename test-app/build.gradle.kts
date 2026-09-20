@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "org.aa.ukraine.test.navigation"
-    compileSdk = 37
+    compileSdk = libs.versions.compileSdk.get().toInt()
     targetProjectPath = ":app"
 
     defaultConfig {
-        minSdk = 23
-        targetSdk = 37
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "org.aa.ukraine.core.testing.HiltTestRunner"
     }
@@ -22,7 +22,6 @@ android {
     buildFeatures {
         aidl = false
         buildConfig = false
-        renderScript = false
         shaders = false
     }
 

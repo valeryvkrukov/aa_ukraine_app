@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "org.aa.ukraine"
-    compileSdk = 37
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "org.aa.ukraine"
-        minSdk = 23
-        targetSdk = 37
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -73,6 +73,7 @@ dependencies {
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
 
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
@@ -98,8 +99,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     // Navigation
-    implementation(libs.androidx.navigation3.ui)
-    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.navigation.compose)
 
     // Instrumented tests
     androidTestImplementation(composeBom)

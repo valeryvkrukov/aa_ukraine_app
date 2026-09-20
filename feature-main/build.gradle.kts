@@ -8,10 +8,10 @@ plugins {
 
 android {
     namespace = "org.aa.ukraine.feature.main"
-    compileSdk = 37
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 23
+        minSdk = libs.versions.minSdk.get().toInt()
 
         testInstrumentationRunner = "org.aa.ukraine.core.testing.HiltTestRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.androidx.compose.material.icons)
 
     // Navigation
-    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation.compose)
 
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)

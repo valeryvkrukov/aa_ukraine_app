@@ -46,7 +46,7 @@ fun MainScreen(
         MainScreen(
             items = (items as MainUiState.Success).data,
             onSave = viewModel::addMain,
-            modifier = modifier
+            modifier = modifier,
         )
     }
 }
@@ -55,9 +55,10 @@ fun MainScreen(
 internal fun MainScreen(
     items: List<String>,
     onSave: (name: String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             AppTopBar(
                 title = "",
@@ -73,7 +74,7 @@ internal fun MainScreen(
                     IconButton(onClick = { /* Search for a group */ }) {
                         Icon(Icons.Default.Search, contentDescription = stringResource(R.string.app_topbar_search))
                     }
-                }
+                },
             )
         },
         bottomBar = {
@@ -85,25 +86,25 @@ internal fun MainScreen(
         }
     ) { paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier.padding(paddingValues),
         ) {
             var name by rememberSaveable { mutableStateOf("") }
             Row(
                 modifier = Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
                     label = { Text("New Item") },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
                 )
                 Button(
                     onClick = {
                         onSave(name)
                         name = ""
                     },
-                    modifier = Modifier.padding(start = 8.dp)
+                    modifier = Modifier.padding(start = 8.dp),
                 ) {
                     Text("Add")
                 }

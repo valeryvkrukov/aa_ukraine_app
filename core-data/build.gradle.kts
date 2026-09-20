@@ -7,10 +7,10 @@ plugins {
 
 android {
     namespace = "org.aa.ukraine.core.data"
-    compileSdk = 37
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 23
+        minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "org.aa.ukraine.core.testing.HiltTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
