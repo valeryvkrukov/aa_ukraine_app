@@ -5,8 +5,7 @@
 
     <style name="Theme.AAUkraine.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#1D70B8</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_aa_logo_point</item>
-        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
         <item name="postSplashScreenTheme">@style/Theme.AAUkraine</item>
     </style>
 </resources>
