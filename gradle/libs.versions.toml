@@ -18,6 +18,7 @@ ksp = "2.3.12"
 lifecycleViewmodelNav3 = "2.11.0"
 nav3Core = "1.1.7"
 androidxCoreSplash = "1.2.0"
+androidxMaterialIconsExt = "1.7.8"
 appcompat = "1.8.0"
 
 [libraries]
@@ -56,6 +57,7 @@ kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxCoreSplash"}
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-compose-material-icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidxMaterialIconsExt" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

@@ -1,6 +1,6 @@
 package org.aa.ukraine.feature.main.navigation
 
-import org.aa.ukraine.feature.main.ui.MainScreen
+import org.aa.ukraine.feature.main.ui.screen.MainScreen
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

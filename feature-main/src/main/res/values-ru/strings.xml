@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_topbar_menu">Меню</string>
+    <string name="app_topbar_filter">Фильтр</string>
+    <string name="app_topbar_search">Поиск</string>
+    <string name="app_bottombar_groups">Группы</string>
+    <string name="app_bottombar_diary">Дневник</string>
+</resources>
