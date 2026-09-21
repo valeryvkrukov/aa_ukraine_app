@@ -19,3 +19,7 @@ val AABackgroundDark = Color(0xFF121212)      // Classic deep dark background
 val AASurfaceDark = Color(0xFF1E1E1E)         // A lighter shade of black for cards
 val AAOnSurfaceTextDark = Color(0xFFE0E0E0)   // Soft white text (doesn't dazzle the eyes)
 val AAMutedTextDark = Color(0xFF9E9E9E)       // Gray text for secondary data
+
+// --- SPECIFIC COLORS ---
+val AASiteHeaderBackground = Color(0xFFF4F0EE)  // Background color of official site header
+val AALogoBackground = Color(0xFF085080)        // Background color of official logo

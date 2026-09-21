@@ -5,6 +5,9 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import org.aa.ukraine.core.ui.AAUkraineTheme
 
 /**
  * Universal bottom navigation/action bar.
@@ -18,8 +21,18 @@ fun AppBottomBar(
 ) {
     BottomAppBar(
         modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.secondary,
+        containerColor = Color(0xFFCAB8A2),
         contentColor = MaterialTheme.colorScheme.onSecondary,
         actions = actions
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppBottomBarPreview() {
+    AAUkraineTheme {
+        AppBottomBar(
+            actions = {}
+        )
+    }
 }

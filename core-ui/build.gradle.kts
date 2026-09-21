@@ -36,6 +36,7 @@ kotlin {
 
 dependencies {
     implementation(project(":core-database"))
+    implementation(libs.androidx.compose.animation.graphics)
 
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)

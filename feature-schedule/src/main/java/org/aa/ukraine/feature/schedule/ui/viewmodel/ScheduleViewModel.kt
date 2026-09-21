@@ -27,7 +27,7 @@ class ScheduleViewModel @Inject constructor(
     // Local thread for tracking the user's selected display mode
     private val _displayType = MutableStateFlow(DisplayType.SIMPLE_LIST)
 
-    // We combine the thread of meetings from the repository and the display mode thread
+    // Combine the thread of meetings from the repository and the display mode thread
     val uiState: StateFlow<ScheduleScreenUiState> = meetingRepository.getMeetings()
         .combine<List<Meeting>, DisplayType, ScheduleScreenUiState>(_displayType) { meetings, displayType ->
             when (displayType) {

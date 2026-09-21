@@ -39,6 +39,7 @@ kotlin {
 dependencies {
     implementation(project(":core-data"))
     implementation(project(":core-ui"))
+    implementation(libs.androidx.compose.foundation.layout)
 
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
@@ -64,6 +65,11 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
+
+    // Jsoup + Coil3-Kt
+    implementation(libs.jsoup)
+    implementation(libs.coil3.kt.compose)
+    implementation(libs.coil3.kt.network.okhttp)
 
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)

@@ -6,6 +6,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -16,9 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.aa.ukraine.core.ui.AAUkraineTheme
 import kotlin.time.Duration.Companion.milliseconds
+import androidx.core.graphics.toColorInt
 
 @Composable
 fun AnimatedSplashScreen(onAnimationFinished: () -> Unit) {
@@ -27,9 +31,10 @@ fun AnimatedSplashScreen(onAnimationFinished: () -> Unit) {
     val triangleAlpha = remember { Animatable(0f) }
     val triangleScale = remember { Animatable(0.3f) }
     val triangleRotation = remember { Animatable(-90f) }
+    val textAlpha = remember { Animatable(0f) }
+    val textOffsetY = remember { Animatable(-50f) }
 
     LaunchedEffect(key1 = true) {
-        // Phase 1: Emergence and expansion of the outer circle
         launch {
             circleAlpha.animateTo(1f, animationSpec = tween(800))
         }
@@ -37,10 +42,8 @@ fun AnimatedSplashScreen(onAnimationFinished: () -> Unit) {
             circleScale.animateTo(1f, animationSpec = tween(800))
         }
 
-        // Slight animation overlap for smoothness
-        delay(400.milliseconds)
+        delay(300.milliseconds)
 
-        // Phase 2: The triangle "screws in" and assembles inside the circle
         launch {
             triangleAlpha.animateTo(1f, animationSpec = tween(900))
         }
@@ -51,64 +54,95 @@ fun AnimatedSplashScreen(onAnimationFinished: () -> Unit) {
             triangleRotation.animateTo(0f, animationSpec = tween(900))
         }
 
-        delay(1200.milliseconds) // Keep the assembled logo on the screen
-        onAnimationFinished() // Signal to switch to the main screen
+        delay(600.milliseconds)
+
+        launch { textAlpha.animateTo(1f, animationSpec = tween(600)) }
+        launch { textOffsetY.animateTo(0f, animationSpec = tween(600)) }
+
+        delay(1200.milliseconds)
+        onAnimationFinished()
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF1D70B8)), // The signature blue background of aa.org.ua
+            .background(Color(0xFF1D70B8)),
         contentAlignment = Alignment.Center
     ) {
-        // Tracing the logo geometry
-        Canvas(modifier = Modifier.fillMaxSize(0.4f)) {
+        Canvas(modifier = Modifier.fillMaxSize(0.65f)) {
             val width = size.width
             val height = size.height
             val center = Offset(width / 2f, height / 2f)
-            val radius = width.coerceAtMost(height) * 0.4f
+            val radius = width.coerceAtMost(height) * 0.48f
 
-            // 1. Draw the outer circle, taking animation into account
+            // 1. Rendering the outer AA circle
             if (circleAlpha.value > 0f) {
                 drawCircle(
-                    color = Color.White,
+                    color = Color(0xFFFFFC00),
                     radius = radius * circleScale.value,
                     center = center,
                     alpha = circleAlpha.value,
-                    style = Stroke(width = 12f)
+                    style = Stroke(width = 32f)
                 )
             }
 
-            // 2. Draw a triangle, taking rotation and scale into account
-            if (triangleAlpha.value > 0f) {
-                val trianglePath = Path().apply {
-                    // Top corner of a triangle
-                    moveTo(center.x, center.y - radius * 0.8f)
-                    // Bottom right corner
-                    lineTo(center.x + radius * 0.7f, center.y + radius * 0.5f)
-                    // Lower left corner
-                    lineTo(center.x - radius * 0.7f, center.y + radius * 0.5f)
-                    close()
-                }
+            // 2. Rendering of a screwing-in triangle
+            withTransform({
+                rotate(degrees = triangleRotation.value, pivot = center)
+                scale(scaleX = triangleScale.value, scaleY = triangleScale.value, pivot = center)
+            }) {
+                if (triangleAlpha.value > 0f) {
+                    val trianglePath = Path().apply {
+                        moveTo(center.x, center.y - radius * 0.96f)
+                        lineTo(center.x + radius * 0.83f, center.y + radius * 0.48f)
+                        lineTo(center.x - radius * 0.83f, center.y + radius * 0.48f)
+                        close()
+                    }
 
-                // We use the built-in shift, rotation, and scaling of the canvas itself:
-                withTransform({
-                    // Move the transformation point to the center of the logo
-                    translate(left = 0f, top = 0f)
-                    // Rotate around the center
-                    rotate(degrees = triangleRotation.value, pivot = center)
-                    // Scale relative to the center
-                    scale(scaleX = triangleScale.value, scaleY = triangleScale.value, pivot = center)
-                }) {
-                    // Draw a triangle inside the transformed area
                     drawPath(
                         path = trianglePath,
-                        color = Color.White,
+                        color = Color(0xFFFFFC00),
                         alpha = triangleAlpha.value,
-                        style = Stroke(width = 12f)
+                        style = Stroke(width = 16f)
+                    )
+                }
+            }
+
+            // 3. Rendering of the letters "AA" (appearing separately, WITHOUT rotating the triangle mesh)
+            if (textAlpha.value > 0f) {
+                drawContext.canvas.nativeCanvas.apply {
+                    val paint = android.graphics.Paint().apply {
+                        color = "#FFFC00".toColorInt()
+                        textSize = radius * 0.9f
+                        isFakeBoldText = true
+                        textAlign = android.graphics.Paint.Align.CENTER
+                        alpha = (textAlpha.value * 255).toInt()
+
+                        typeface = android.graphics.Typeface.create(
+                            android.graphics.Typeface.MONOSPACE,
+                            android.graphics.Typeface.BOLD
+                        )
+                    }
+
+                    // Add textOffsetY.value to the base Y-axis so that the letters "float" from top to bottom
+                    val textY = center.y + (paint.textSize / 4.5f) + (radius * 0.2f) + textOffsetY.value
+
+                    drawText(
+                        "АА",
+                        center.x,
+                        textY,
+                        paint
                     )
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AnimatedSplashScreenPreview() {
+    AAUkraineTheme {
+        AnimatedSplashScreen(onAnimationFinished = {})
     }
 }

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="main_topbar_menu">Меню</string>
+    <string name="main_topbar_search">Пошук</string>
+
     <string name="meeting_online_meetup_txt">Онлайн зустріч (Zoom / Інтернет)</string>
     <string name="meeting_amoung_friends_txt">У колі друзів</string>
     <string name="meeting_speakers_txt">Спікерська</string>
     <string name="meeting_join_a_zoom_txt">Увійти в Zoom зустріч</string>
     <string name="meeting_show_on_map_txt">Показати на карті</string>
+    <string name="main_topbar_title">АА в Україні</string>
 </resources>

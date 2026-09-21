@@ -24,6 +24,11 @@ appcompat = "1.8.0"
 navigationCompose = "2.10.1"
 espressoCore = "3.7.0"
 material = "1.14.0"
+animationGraphics = "1.12.1"
+jsoupParser = "1.23.2"
+coil3Compose = "3.6.3"
+coil3Network = "3.6.3"
+foundationLayout = "1.12.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
@@ -61,6 +66,12 @@ androidx-compose-material-icons = { module = "androidx.compose.material:material
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-compose-animation-graphics = { group = "androidx.compose.animation", name = "animation-graphics", version.ref = "animationGraphics" }
+
+jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoupParser" }
+coil3-kt-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil3Compose" }
+coil3-kt-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil3Network" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

@@ -9,12 +9,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
-    private val _uiState = MutableStateFlow<MainUiState>(MainUiState.Success(data = emptyList()))
+    private val _uiState = MutableStateFlow(MainUiState.Loading)
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
+
+    // TODO: Jsoup / API's implementation
 }
 
 sealed interface MainUiState {
     object Loading : MainUiState
     data class Error(val throwable: Throwable) : MainUiState
-    data class Success(val data: List<String>) : MainUiState
+    data class Success(
+        val message: String? = null
+    ) : MainUiState
 }
