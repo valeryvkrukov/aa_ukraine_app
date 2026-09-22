@@ -4,15 +4,20 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
 import org.aa.ukraine.core.ui.screen.AnimatedSplashScreen
 import org.aa.ukraine.feature.main.ui.screen.MainScreen
-import org.aa.ukraine.feature.schedule.navigation.navigateToSchedule
 import org.aa.ukraine.feature.schedule.ui.screen.ScheduleScreen
 
-object Screen {
-    const val SPLASH = "splash_screen"
-    const val MAIN = "main_screen"
-    const val SCHEDULE = "schedule_route"
+sealed interface Screen {
+    @Serializable
+    data object Splash : Screen
+
+    @Serializable
+    data object Main : Screen
+
+    @Serializable
+    data object Schedule : Screen
 }
 
 @Composable
@@ -21,26 +26,26 @@ fun MainNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.SPLASH, // Start strictly from the Splash screen
+        startDestination = Screen.Splash, // Start strictly from the Splash screen
     ) {
         // 1. Animated splash screen
-        composable(route = Screen.SPLASH) {
+        composable<Screen.Splash> {
             AnimatedSplashScreen {
-                navController.navigate(Screen.MAIN) {
-                    popUpTo(Screen.SPLASH) { inclusive = true }
+                navController.navigate(Screen.Main) {
+                    popUpTo(Screen.Splash) { inclusive = true }
                 }
             }
         }
 
         // 2. The main screen of the application
-        composable(route = Screen.MAIN) {
+        composable<Screen.Main> {
             MainScreen(
-                onScheduleClick = { navController.navigateToSchedule() }
+                onScheduleClick = { navController.navigate(Screen.Schedule) }
             )
         }
 
         // 3. Schedule screen
-        composable(route = Screen.SCHEDULE) {
+        composable<Screen.Schedule> {
             ScheduleScreen()
         }
     }
