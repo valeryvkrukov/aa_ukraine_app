@@ -81,17 +81,18 @@ dependencies {
 
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    kspAndroidTest(libs.hilt.compiler)
-    kspTest(libs.hilt.compiler)
+    listOf("ksp", "kspAndroidTest", "kspTest").forEach { config ->
+        dependencies.add(config, libs.hilt.compiler)
+    }
 
     // Arch Components
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // Compose
-    val composeBom = platform(libs.androidx.compose.bom)
-    implementation(composeBom)
+    listOf("implementation", "androidTestImplementation").forEach { config ->
+        dependencies.add(config, platform(libs.androidx.compose.bom))
+    }
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
@@ -102,11 +103,7 @@ dependencies {
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    // Navigation
-    implementation(libs.androidx.navigation.compose)
-
     // Instrumented tests
-    androidTestImplementation(composeBom)
     androidTestImplementation(project(":core-testing"))
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.hilt.android.testing)

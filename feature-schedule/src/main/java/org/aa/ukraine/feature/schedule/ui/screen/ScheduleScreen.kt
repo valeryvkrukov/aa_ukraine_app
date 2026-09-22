@@ -32,7 +32,7 @@ import org.aa.ukraine.feature.schedule.ui.viewmodel.ScheduleViewModel
 @Composable
 fun ScheduleScreen(
     modifier: Modifier = Modifier,
-    viewModel: ScheduleViewModel = hiltViewModel()
+    viewModel: ScheduleViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 

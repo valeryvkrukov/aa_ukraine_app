@@ -22,31 +22,34 @@ enum class DisplayType {
 
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
-    meetingRepository: MeetingRepository
+    meetingRepository: MeetingRepository,
 ) : ViewModel() {
     // Local thread for tracking the user's selected display mode
     private val _displayType = MutableStateFlow(DisplayType.SIMPLE_LIST)
 
     // Combine the thread of meetings from the repository and the display mode thread
-    val uiState: StateFlow<ScheduleScreenUiState> = meetingRepository.getMeetings()
-        .combine<List<Meeting>, DisplayType, ScheduleScreenUiState>(_displayType) { meetings, displayType ->
-            when (displayType) {
-                DisplayType.SIMPLE_LIST -> {
-                    ScheduleScreenUiState.Success(
-                        meetings = meetings,
-                        groupedMeetings = emptyMap<Int, List<Meeting>>(),
-                        displayType = displayType
-                    )
-                }
-                DisplayType.GROUPED_DAYS -> {
-                    ScheduleScreenUiState.Success(
-                        meetings = emptyList<Meeting>(),
-                        groupedMeetings = groupMeetingsByDay(meetings),
-                        displayType = displayType
-                    )
-                }
+    val uiState: StateFlow<ScheduleScreenUiState> = combine(
+        meetingRepository.getMeetings(),
+        _displayType,
+    ) { meetings, displayType ->
+        val successState: ScheduleScreenUiState = when (displayType) {
+            DisplayType.SIMPLE_LIST -> {
+                ScheduleScreenUiState.Success(
+                    meetings = meetings,
+                    groupedMeetings = emptyMap(),
+                    displayType = displayType,
+                )
+            }
+            DisplayType.GROUPED_DAYS -> {
+                ScheduleScreenUiState.Success(
+                    meetings = emptyList(),
+                    groupedMeetings = groupMeetingsByDay(meetings),
+                    displayType = displayType,
+                )
             }
         }
+        successState
+    }
         .catch { throwable ->
             emit(ScheduleScreenUiState.Error(throwable))
         }

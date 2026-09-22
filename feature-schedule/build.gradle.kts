@@ -41,9 +41,9 @@ dependencies {
     implementation(project(":core-database"))
     implementation(project(":core-ui"))
 
-    val composeBom = platform(libs.androidx.compose.bom)
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
+    listOf("implementation", "androidTestImplementation").forEach { config ->
+        dependencies.add(config, platform(libs.androidx.compose.bom))
+    }
 
     implementation(project(":feature-schedule-navigation"))
 
@@ -74,19 +74,20 @@ dependencies {
 
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    // Hilt and instrumented tests.
-    androidTestImplementation(libs.hilt.android.testing)
-    kspAndroidTest(libs.hilt.compiler)
-    // Hilt and Robolectric tests.
-    testImplementation(libs.hilt.android.testing)
-    kspTest(libs.hilt.compiler)
+    listOf("ksp", "kspAndroidTest", "kspTest").forEach { config ->
+        dependencies.add(config, libs.hilt.compiler)
+    }
 
-    // Local tests: jUnit, coroutines, Android runner
+    // Hilt and instrumented & Robolectric tests.
+    listOf("androidTestImplementation", "testImplementation").forEach { config ->
+        dependencies.add(config, libs.hilt.android.testing)
+    }
+
+    // Local tests: JUnit, coroutines, Android runner
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
 
-    // Instrumented tests: jUnit rules and runners
+    // Instrumented tests: JUnit rules and runners
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
 }

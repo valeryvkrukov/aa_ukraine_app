@@ -40,7 +40,7 @@ fun MainNavigation() {
         // 2. The main screen of the application
         composable<Screen.Main> {
             MainScreen(
-                onScheduleClick = { navController.navigate(Screen.Schedule) }
+                onScheduleClick = { navController.navigate(Screen.Schedule) },
             )
         }
 

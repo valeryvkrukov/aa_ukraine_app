@@ -41,9 +41,9 @@ fun MainScreen(
 
 @Composable
 internal fun MainScreen(
-    uiState: MainUiState,
     onScheduleClick: () -> Unit,
     modifier: Modifier = Modifier,
+    uiState: MainUiState
 ) {
     Scaffold(
         modifier = modifier,
@@ -85,7 +85,6 @@ private fun DefaultPreview() {
     AAUkraineTheme {
         MainScreen(
             onScheduleClick = {},
-            modifier = Modifier
         )
     }
 }

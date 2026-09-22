@@ -39,8 +39,7 @@ kotlin {
 
 dependencies {
     implementation(project(":app"))
-    val composeBom = platform(libs.androidx.compose.bom)
-    implementation(composeBom)
+    implementation(platform(libs.androidx.compose.bom))
     implementation(project(":core-data"))
     implementation(project(":core-testing"))
     implementation(project(":feature-main"))
