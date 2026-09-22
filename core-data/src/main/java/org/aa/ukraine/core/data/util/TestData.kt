@@ -5,7 +5,7 @@ import org.aa.ukraine.core.database.model.MeetingType
 
 object TestData {
     // 1. Mock model for the UI layer
-    val testExternalMeeting: List<Meeting> = listOf(
+    val testExternalMeetings: List<Meeting> = listOf(
         Meeting(
             id = "1",
             title = "Единство",

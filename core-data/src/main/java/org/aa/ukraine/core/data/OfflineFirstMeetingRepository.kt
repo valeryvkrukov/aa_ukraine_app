@@ -1,16 +1,13 @@
 package org.aa.ukraine.core.data
 
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.aa.ukraine.core.data.mapper.asEntity
 import org.aa.ukraine.core.data.mapper.asExternalModel
 import org.aa.ukraine.core.data.util.TestData
 import org.aa.ukraine.core.database.dao.MeetingDao
-import org.aa.ukraine.core.database.entity.MeetingEntity
 import org.aa.ukraine.core.database.model.Meeting
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 
 class OfflineFirstMeetingRepository @Inject constructor(
     private val meetingDao: MeetingDao
@@ -24,15 +21,12 @@ class OfflineFirstMeetingRepository @Inject constructor(
 
     // Loading simulation: clearing the database and seeding the initial AA Ukraine groups
     override suspend fun syncMeetings() {
-        delay(1000.milliseconds)
-
-        val meetingsList: List<Meeting> = TestData.testExternalMeeting
-        val entitiesList: List<MeetingEntity> = meetingsList.map { meeting ->
-            meeting.asEntity()
-        }
+        val mockData = TestData.testExternalMeetings
 
         meetingDao.clearAllMeetings()
 
-        meetingDao.insertMeetings(entitiesList)
+        val entities = mockData.map { it.asEntity() }
+
+        meetingDao.insertMeetings(entities)
     }
 }

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import org.aa.ukraine.core.data.MeetingRepository
 import org.aa.ukraine.core.database.model.Meeting
 import javax.inject.Inject
@@ -22,7 +23,7 @@ enum class DisplayType {
 
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
-    meetingRepository: MeetingRepository,
+    private val meetingRepository: MeetingRepository,
 ) : ViewModel() {
     // Local thread for tracking the user's selected display mode
     private val _displayType = MutableStateFlow(DisplayType.SIMPLE_LIST)
@@ -79,6 +80,16 @@ class ScheduleViewModel @Inject constructor(
             }
         }
         return resultMap.mapValues { (_, list) -> list.sortedBy { it.time } }
+    }
+
+    private fun syncMeetingsWithWebsite() {
+        viewModelScope.launch {
+            try {
+                meetingRepository.syncMeetings()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }
 
