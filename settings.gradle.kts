@@ -21,6 +21,7 @@ rootProject.name = "AA Ukraine"
 include(":app")
 include(":core-data")
 include(":core-database")
+include(":core-network")
 include(":core-testing")
 include(":core-ui")
 include(":feature-main-navigation")
