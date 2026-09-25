@@ -35,6 +35,7 @@ kotlin {
 
 dependencies {
     implementation(project(":core-database"))
+    implementation(libs.androidx.room.runtime)
 
     // Arch Components
     implementation(libs.hilt.android)

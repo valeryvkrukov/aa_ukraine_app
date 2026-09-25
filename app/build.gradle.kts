@@ -66,6 +66,8 @@ kotlin {
 
 dependencies {
     implementation(project(":core-ui"))
+    implementation(project(":core-database"))
+    implementation(project(":core-data"))
     implementation(project(":feature-main"))
     implementation(project(":feature-main-navigation"))
     implementation(project(":feature-schedule"))

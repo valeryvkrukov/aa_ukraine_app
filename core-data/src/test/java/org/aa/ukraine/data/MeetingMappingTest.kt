@@ -9,7 +9,7 @@ import org.junit.Test
 class MeetingMappingTest {
     @Test
     fun meetingEntity_canBeMapped_toExternalModel() {
-        val originalModel = TestData.testExternalMeeting.first()
+        val originalModel = TestData.testExternalMeetings.first()
         val entity = originalModel.asEntity()
         val externalModel = entity.asExternalModel()
 
@@ -23,7 +23,7 @@ class MeetingMappingTest {
 
     @Test
     fun externalMeeting_canBeMapped_toDatabaseEntity() {
-        val externalModel = TestData.testExternalMeeting.last()
+        val externalModel = TestData.testExternalMeetings.last()
         val entity = externalModel.asEntity()
 
         assertEquals(externalModel.id, entity.id)

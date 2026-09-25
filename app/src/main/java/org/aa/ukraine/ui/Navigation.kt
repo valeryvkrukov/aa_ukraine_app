@@ -26,7 +26,7 @@ fun MainNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash, // Start strictly from the Splash screen
+        startDestination = Screen.Splash,
     ) {
         // 1. Animated splash screen
         composable<Screen.Splash> {

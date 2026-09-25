@@ -9,6 +9,10 @@ import org.aa.ukraine.core.database.entity.MeetingEntity
 
 @Dao
 interface MeetingDao {
+    // Lightweight and ultra-fast query to check for the existence of records
+    @Query("SELECT EXISTS(SELECT 1 FROM meetings LIMIT 1)")
+    suspend fun hasMeetings(): Boolean
+
     // Reading all groups for the general schedule feed
     @Query("SELECT * FROM meetings ORDER BY time ASC")
     fun getAllMeetings(): Flow<List<MeetingEntity>>

@@ -1,12 +1,13 @@
 package org.aa.ukraine.core.ui.screen
 
+import android.graphics.Paint
+import android.graphics.Typeface
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -17,12 +18,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.graphics.toColorInt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.aa.ukraine.core.ui.AAUkraineTheme
 import kotlin.time.Duration.Companion.milliseconds
-import androidx.core.graphics.toColorInt
 
 @Composable
 fun AnimatedSplashScreen(onAnimationFinished: () -> Unit) {
@@ -33,6 +35,23 @@ fun AnimatedSplashScreen(onAnimationFinished: () -> Unit) {
     val triangleRotation = remember { Animatable(-90f) }
     val textAlpha = remember { Animatable(0f) }
     val textOffsetY = remember { Animatable(-50f) }
+
+    // Cached objects to avoid allocation on every frame during animation
+    val typeface = remember {
+        Typeface.create(
+            Typeface.MONOSPACE,
+            Typeface.BOLD,
+        )
+    }
+    val textPaint = remember {
+        Paint().apply {
+            color = "#FFFC00".toColorInt()
+            isFakeBoldText = true
+            textAlign = Paint.Align.CENTER
+            this.typeface = typeface
+        }
+    }
+    val trianglePath = remember { Path() }
 
     LaunchedEffect(key1 = true) {
         launch {
@@ -92,12 +111,11 @@ fun AnimatedSplashScreen(onAnimationFinished: () -> Unit) {
                 scale(scaleX = triangleScale.value, scaleY = triangleScale.value, pivot = center)
             }) {
                 if (triangleAlpha.value > 0f) {
-                    val trianglePath = Path().apply {
-                        moveTo(center.x, center.y - radius * 0.96f)
-                        lineTo(center.x + radius * 0.83f, center.y + radius * 0.48f)
-                        lineTo(center.x - radius * 0.83f, center.y + radius * 0.48f)
-                        close()
-                    }
+                    trianglePath.reset()
+                    trianglePath.moveTo(center.x, center.y - radius * 0.96f)
+                    trianglePath.lineTo(center.x + radius * 0.83f, center.y + radius * 0.48f)
+                    trianglePath.lineTo(center.x - radius * 0.83f, center.y + radius * 0.48f)
+                    trianglePath.close()
 
                     drawPath(
                         path = trianglePath,
@@ -108,30 +126,19 @@ fun AnimatedSplashScreen(onAnimationFinished: () -> Unit) {
                 }
             }
 
-            // 3. Rendering of the letters "AA" (appearing separately, WITHOUT rotating the triangle mesh)
+            // 3. Rendering of the letters "AA"
             if (textAlpha.value > 0f) {
                 drawContext.canvas.nativeCanvas.apply {
-                    val paint = android.graphics.Paint().apply {
-                        color = "#FFFC00".toColorInt()
-                        textSize = radius * 0.9f
-                        isFakeBoldText = true
-                        textAlign = android.graphics.Paint.Align.CENTER
-                        alpha = (textAlpha.value * 255).toInt()
+                    textPaint.textSize = radius * 0.9f
+                    textPaint.alpha = (textAlpha.value * 255).toInt()
 
-                        typeface = android.graphics.Typeface.create(
-                            android.graphics.Typeface.MONOSPACE,
-                            android.graphics.Typeface.BOLD
-                        )
-                    }
-
-                    // Add textOffsetY.value to the base Y-axis so that the letters "float" from top to bottom
-                    val textY = center.y + (paint.textSize / 4.5f) + (radius * 0.2f) + textOffsetY.value
+                    val textY = center.y + (textPaint.textSize / 4.5f) + (radius * 0.2f) + textOffsetY.value
 
                     drawText(
                         "АА",
                         center.x,
                         textY,
-                        paint
+                        textPaint
                     )
                 }
             }

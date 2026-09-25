@@ -3,6 +3,7 @@ package org.aa.ukraine.feature.schedule.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -13,8 +14,6 @@ import kotlinx.coroutines.launch
 import org.aa.ukraine.core.data.MeetingRepository
 import org.aa.ukraine.core.database.model.Meeting
 import javax.inject.Inject
-import kotlin.collections.emptyMap
-
 
 enum class DisplayType {
     SIMPLE_LIST,
@@ -83,7 +82,7 @@ class ScheduleViewModel @Inject constructor(
     }
 
     private fun syncMeetingsWithWebsite() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 meetingRepository.syncMeetings()
             } catch (e: Exception) {
@@ -102,6 +101,6 @@ sealed interface ScheduleScreenUiState {
     data class Success(
         val meetings: List<Meeting>,
         val groupedMeetings: Map<Int, List<Meeting>>,
-        val displayType: DisplayType
+        val displayType: DisplayType,
     ) : ScheduleScreenUiState
 }

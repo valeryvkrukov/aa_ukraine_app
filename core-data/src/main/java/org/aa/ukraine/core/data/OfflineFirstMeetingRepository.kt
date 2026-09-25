@@ -1,7 +1,10 @@
 package org.aa.ukraine.core.data
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import org.aa.ukraine.core.data.mapper.asEntity
 import org.aa.ukraine.core.data.mapper.asExternalModel
 import org.aa.ukraine.core.data.util.TestData
@@ -10,17 +13,19 @@ import org.aa.ukraine.core.database.model.Meeting
 import javax.inject.Inject
 
 class OfflineFirstMeetingRepository @Inject constructor(
-    private val meetingDao: MeetingDao
+    private val meetingDao: MeetingDao,
 ) : MeetingRepository {
     // Read from the local database and convert into Compose models
     override fun getMeetings(): Flow<List<Meeting>> {
-        return meetingDao.getAllMeetings().map { entities ->
-            entities.map { it.asExternalModel() }
-        }
+        return meetingDao.getAllMeetings()
+            .map { entities ->
+                entities.map { it.asExternalModel() }
+            }
+            .flowOn(Dispatchers.IO)
     }
 
     // Loading simulation: clearing the database and seeding the initial AA Ukraine groups
-    override suspend fun syncMeetings() {
+    override suspend fun syncMeetings(): Unit = withContext(Dispatchers.IO) {
         val mockData = TestData.testExternalMeetings
 
         meetingDao.clearAllMeetings()
