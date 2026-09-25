@@ -2,6 +2,7 @@ package org.aa.ukraine.core.database.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +25,10 @@ object DatabaseModule {
             appContext,
             AppDatabase::class.java,
             "aa_ukraine_database.db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration(false)
+            .setJournalMode(RoomDatabase.JournalMode.WRITE_AHEAD_LOGGING)
+            .build()
     }
 
     @Provides
