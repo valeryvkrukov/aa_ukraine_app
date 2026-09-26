@@ -1,4 +1,4 @@
-package org.aa.ukraine.feature.main.ui
+package org.aa.ukraine.feature.main.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,9 +10,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.aa.ukraine.core.data.MainRepository
-import org.aa.ukraine.feature.main.ui.MainUiState.Error
-import org.aa.ukraine.feature.main.ui.MainUiState.Loading
-import org.aa.ukraine.feature.main.ui.MainUiState.Success
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,15 +18,9 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState: StateFlow<MainUiState> = mainRepository
-        .mains.map<List<String>, MainUiState> { Success(data = it) }
-        .catch { emit(Error(it)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Loading)
-
-    fun addMain(name: String) {
-        viewModelScope.launch {
-            mainRepository.add(name)
-        }
-    }
+        .mains.map<List<String>, MainUiState> { MainUiState.Success(data = it) }
+        .catch { emit(MainUiState.Error(it)) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MainUiState.Loading)
 }
 
 sealed interface MainUiState {

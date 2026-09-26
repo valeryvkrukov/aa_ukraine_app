@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_top_bar_title">AA in Ukraine</string>
+
+    <string name="app_top_bar_menu">Menu</string>
+    <string name="app_top_bar_filter">Filter</string>
+    <string name="app_top_bar_search">Search</string>
+    <string name="app_bottom_bar_groups">Groups</string>
+    <string name="app_bottom_bar_diary">Diary</string>
+</resources>

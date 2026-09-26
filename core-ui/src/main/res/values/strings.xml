@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_top_bar_title">AA in Ukraine</string>
+    <string name="main_top_bar_menu">Menu</string>
+    <string name="main_top_bar_search">Search</string>
+
+    <string name="meeting_online_meetup_txt">Online meeting (Zoom / Internet)</string>
+    <string name="meeting_among_friends_txt">Among friends</string>
+    <string name="meeting_speakers_txt">Speaker\'s</string>
+    <string name="meeting_join_a_zoom_txt">Join a Zoom meeting</string>
+    <string name="meeting_show_on_map_txt">Show on map</string>
+</resources>

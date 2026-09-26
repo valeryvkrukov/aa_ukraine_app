@@ -8,8 +8,8 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.aa.ukraine.core.data.MainRepository
-import org.aa.ukraine.feature.main.ui.MainUiState
-import org.aa.ukraine.feature.main.ui.MainViewModel
+import org.aa.ukraine.feature.main.ui.viewmodel.MainUiState
+import org.aa.ukraine.feature.main.ui.viewmodel.MainViewModel
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainViewModelTest {

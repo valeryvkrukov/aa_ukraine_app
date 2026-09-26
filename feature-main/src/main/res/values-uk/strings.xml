@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_top_bar_title">АА Україна</string>
+
+    <string name="app_top_bar_menu">Меню</string>
+    <string name="app_top_bar_filter">Фільтр</string>
+    <string name="app_top_bar_search">Пошук</string>
+    <string name="app_bottom_bar_groups">Групи</string>
+    <string name="app_bottom_bar_diary">Щоденник</string>
+</resources>

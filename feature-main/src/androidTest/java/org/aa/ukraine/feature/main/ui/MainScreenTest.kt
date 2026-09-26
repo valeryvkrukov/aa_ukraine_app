@@ -1,10 +1,11 @@
 package org.aa.ukraine.feature.main.ui
 
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.aa.ukraine.feature.main.ui.screen.MainScreen
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -19,7 +20,7 @@ class MainScreenTest {
     @Before
     fun setup() {
         composeTestRule.setContent {
-            MainScreen(FAKE_DATA, onSave = {})
+            MainScreen()
         }
     }
 
