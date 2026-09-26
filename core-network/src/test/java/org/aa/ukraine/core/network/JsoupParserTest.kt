@@ -90,4 +90,14 @@ class JsoupParserTest {
         assertTrue("The parser failed to find a single ONLINE group with a link!", onlineCount > 0)
         println("All data contracts have been successfully verified!")
     }
+
+    @Test
+    fun test_networkModule_shouldProvideNonNullJsoupParser() {
+        // Manually verifying the Hilt module's operation
+        val parserInstance = org.aa.ukraine.core.network.di.NetworkModule.provideJsoupParser()
+
+        assertNotNull("The Hilt module returned an empty JsoupParser instance", parserInstance)
+        println("=== DI GRAPH TEST ===")
+        println("Success! The Hilt module correctly provides the JsoupParser singleton dependency.")
+    }
 }

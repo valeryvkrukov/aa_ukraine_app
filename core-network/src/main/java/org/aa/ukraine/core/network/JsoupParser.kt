@@ -4,8 +4,11 @@ import org.aa.ukraine.core.network.model.NetworkMeeting
 import org.aa.ukraine.core.network.model.NetworkMeetingType
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class JsoupParser {
+@Singleton
+class JsoupParser @Inject constructor() {
     /**
      * Downloads the schedule from the website
      * and fully structures it into a list of objects
@@ -18,12 +21,12 @@ class JsoupParser {
                 .timeout(10000)
                 .get()
 
-            // ЖЕЛЕЗНЫЙ ВЫБОР: Находим абсолютно все h3 и h4 на странице в правильном порядке
+            // Finding absolutely all h3 and h4 tags on the page in the correct order
             val headings = document.select("h3, h4")
             var currentCity = "Не визначено"
 
             for (heading in headings) {
-                // 1. Если нашли h3 — переключаем текущую область/город
+                // 1. If an h3 is found, switch the current region/city
                 if (heading.tagName() == "h3") {
                     val cityText = heading.text().trim()
                     if (cityText.isNotEmpty() && !cityText.contains("Оберiть", ignoreCase = true)) {
@@ -32,7 +35,7 @@ class JsoupParser {
                     continue
                 }
 
-                // 2. Если нашли h4 — это начало карточки группы АА
+                // 2. If an `<h4>` is found, it marks the beginning of a Group AA card
                 if (heading.tagName() == "h4") {
                     val title = heading.text().trim()
                     if (title.isEmpty() || title.contains("телефон", ignoreCase = true)) continue
@@ -43,18 +46,19 @@ class JsoupParser {
                     var meetingTime = ""
                     var link: String? = null
 
-                    // Ищем текстовые данные, идущие СЛЕДОМ за заголовком h4 на том же уровне DOM дерева
+                    // Searching for text data immediately following an `<h4>`
+                    // heading at the same level of the DOM tree
                     var nextSibling: Element? = heading.nextElementSibling()
 
-                    // Если Elementor обернул h4 в свой div, выходим на уровень контейнера виджета
+                    // If Elementor has wrapped the h4 in its own div, move up to the widget container level
                     if (nextSibling == null && heading.parent()?.tagName() == "div") {
                         nextSibling = heading.parent()?.nextElementSibling()
                     }
 
-                    // Сканируем элементы ниже, пока не наткнемся на следующий h4 или h3
+                    // Scan the elements below until we encounter the next h4 or h3
                     while (nextSibling != null) {
                         if (nextSibling.tagName() == "h4" || nextSibling.tagName() == "h3" || nextSibling.select("h4, h3").isNotEmpty()) {
-                            break // Началась следующая группа
+                            break // The next group has started
                         }
 
                         val text = nextSibling.text().trim()
@@ -71,7 +75,7 @@ class JsoupParser {
                             additionalInfo += (if (additionalInfo.isNotEmpty()) "\n" else "") + text
                         }
 
-                        // Извлекаем Zoom / Telegram ссылки
+                        // Extracting Zoom / Telegram links
                         val anchor = nextSibling.select("a").first()
                         if (anchor != null) {
                             val href = anchor.absUrl("href")
