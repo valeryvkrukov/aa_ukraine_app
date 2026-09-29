@@ -38,11 +38,13 @@ kotlin {
 
 dependencies {
     implementation(project(":core-data"))
+    implementation(project(":core-network"))
     implementation(project(":core-ui"))
     implementation(project(":feature-main-navigation"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.ui.text)
 
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)

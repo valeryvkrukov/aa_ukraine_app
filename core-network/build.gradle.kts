@@ -2,11 +2,12 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "org.aa.ukraine.core.ui"
+    namespace = "org.aa.ukraine.core.network"
     compileSdk = 37
 
     defaultConfig {
@@ -16,7 +17,6 @@ android {
     }
 
     buildFeatures {
-        compose = true
         aidl = false
         buildConfig = false
         shaders = false
@@ -35,15 +35,17 @@ kotlin {
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.ai)
+    implementation(libs.firebase.appcheck.debug)
 
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons.extended)
-    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
-    debugImplementation(libs.androidx.compose.ui.tooling)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

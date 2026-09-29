@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.aa.ukraine.core.data.DefaultMainRepository
 import org.aa.ukraine.core.data.MainRepository
+import org.aa.ukraine.core.data.repository.OfflineFirstReflectionRepository
+import org.aa.ukraine.core.data.repository.ReflectionRepository
 import javax.inject.Singleton
 
 @Module
@@ -17,4 +19,10 @@ interface DataModule {
     fun bindsMainRepository(
         mainRepository: DefaultMainRepository
     ): MainRepository
+
+    @Binds
+    @Singleton
+    fun bindReflectionRepository(
+        repository: OfflineFirstReflectionRepository
+    ): ReflectionRepository
 }

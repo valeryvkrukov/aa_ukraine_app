@@ -5,7 +5,9 @@ import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import org.aa.ukraine.feature.main.ui.MainScreen
 
-fun EntryProviderScope<NavKey>.mainEntryProvider(backStack: NavBackStack<NavKey>) {
+fun EntryProviderScope<NavKey>.mainEntryProvider(
+    backStack: NavBackStack<NavKey>
+) {
     entry<MainKey> {
         MainScreen()
     }

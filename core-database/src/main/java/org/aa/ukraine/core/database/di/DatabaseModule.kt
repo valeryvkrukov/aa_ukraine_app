@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.aa.ukraine.core.database.AppDatabase
 import org.aa.ukraine.core.database.MainDao
+import org.aa.ukraine.core.database.dao.ReflectionDao
 import javax.inject.Singleton
 
 @Module
@@ -20,12 +21,19 @@ class DatabaseModule {
     }
 
     @Provides
+    fun provideReflectionDao(appDatabase: AppDatabase): ReflectionDao {
+        return appDatabase.reflectionDao()
+    }
+
+    @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return Room.databaseBuilder(
             appContext,
             AppDatabase::class.java,
-            "Main"
-        ).build()
+            "Main",
+        )
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .build()
     }
 }
