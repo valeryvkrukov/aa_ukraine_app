@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_top_bar_title">АА в Украине</string>
+    <string name="main_top_bar_menu">Меню</string>
+    <string name="main_top_bar_search">Поиск</string>
+
+    <string name="nav_main">Главная</string>
+    <string name="nav_map">Карта</string>
+    <string name="nav_schedule">Расписание</string>
+    <string name="nav_diary">Ежедневник</string>
+    <string name="nav_assistant">Ассистент</string>
+
+    <string name="screen_main">Главная</string>
+    <string name="screen_map">Карта собраний</string>
+    <string name="screen_schedule">Расписание собраний</string>
+    <string name="screen_diary">Ежедневник</string>
+    <string name="screen_assistant">Ассистент</string>
+</resources>

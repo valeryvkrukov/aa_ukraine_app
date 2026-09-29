@@ -63,8 +63,21 @@ kotlin {
 
 dependencies {
     implementation(project(":core-ui"))
+
     implementation(project(":feature-main"))
     implementation(project(":feature-main-navigation"))
+
+    implementation(project(":feature-map"))
+    implementation(project(":feature-map-navigation"))
+
+    implementation(project(":feature-schedule"))
+    implementation(project(":feature-schedule-navigation"))
+
+    implementation(project(":feature-diary"))
+    implementation(project(":feature-diary-navigation"))
+
+    implementation(project(":feature-assistant"))
+    implementation(project(":feature-assistant-navigation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -80,6 +93,7 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 

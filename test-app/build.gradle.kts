@@ -39,8 +39,21 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(project(":core-data"))
     implementation(project(":core-testing"))
+
     implementation(project(":feature-main"))
     implementation(project(":feature-main-navigation"))
+
+    implementation(project(":feature-map"))
+    implementation(project(":feature-map-navigation"))
+
+    implementation(project(":feature-schedule"))
+    implementation(project(":feature-schedule-navigation"))
+
+    implementation(project(":feature-diary"))
+    implementation(project(":feature-diary-navigation"))
+
+    implementation(project(":feature-assistant"))
+    implementation(project(":feature-assistant-navigation"))
 
     implementation(libs.androidx.test.core)
     implementation(libs.androidx.compose.ui.test.junit4)

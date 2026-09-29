@@ -39,11 +39,9 @@ kotlin {
 dependencies {
     implementation(project(":core-data"))
     implementation(project(":core-ui"))
-    implementation(platform(libs.androidx.compose.bom))
     implementation(project(":feature-main-navigation"))
 
-    androidTestImplementation(project(":core-testing"))
-
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
 
     implementation(libs.androidx.lifecycle.runtime.compose)
@@ -58,10 +56,6 @@ dependencies {
     implementation(libs.androidx.navigation3.runtime)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    debugImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -71,6 +65,9 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
 
+    androidTestImplementation(project(":core-testing"))
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
 }
