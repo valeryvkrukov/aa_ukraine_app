@@ -15,4 +15,8 @@
     <string name="screen_schedule">Розклад зібрань</string>
     <string name="screen_diary">Щоденник</string>
     <string name="screen_assistant">Помічник</string>
+
+    <string name="topic_of_the_day">Повсякденні Роздуми (%s):</string>
+    <string name="ai_reasoning">Роздуми ШІ</string>
+    <string name="loading_reflections">Завантаження роздумів з Gemini…</string>
 </resources>

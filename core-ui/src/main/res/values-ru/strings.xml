@@ -15,4 +15,8 @@
     <string name="screen_schedule">Расписание собраний</string>
     <string name="screen_diary">Ежедневник</string>
     <string name="screen_assistant">Ассистент</string>
+
+    <string name="topic_of_the_day">Ежедневные Размышления (%s):</string>
+    <string name="ai_reasoning">Размышления ИИ</string>
+    <string name="loading_reflections">Загрузка размышлений из Gemini…</string>
 </resources>

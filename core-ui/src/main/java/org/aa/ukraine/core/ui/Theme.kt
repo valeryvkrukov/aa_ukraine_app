@@ -32,6 +32,7 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = Color.White,
     secondary = AASecondaryBlue,
     onSecondary = Color.White,
+    tertiaryContainer = AATertiaryContainer,
     tertiary = AAAmberAccent,
     onTertiary = Color.White,
     background = AABackground,

@@ -36,6 +36,7 @@ kotlin {
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui.geometry)
 
     implementation(libs.androidx.core.ktx)
 

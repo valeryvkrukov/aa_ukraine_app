@@ -17,7 +17,7 @@ import org.aa.ukraine.core.ui.AAUkraineTheme
 @Composable
 fun AppBottomBar(
     modifier: Modifier = Modifier,
-    containerColor: Color = Color(0xFFCAB8A2),
+    containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
     contentColor: Color = MaterialTheme.colorScheme.onSecondary,
     actions: @Composable RowScope.() -> Unit = {}
 ) {

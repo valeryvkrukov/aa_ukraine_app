@@ -15,4 +15,8 @@
     <string name="screen_schedule">Meeting Schedule</string>
     <string name="screen_diary">Daily Reflections</string>
     <string name="screen_assistant">AA Assistant</string>
+
+    <string name="topic_of_the_day">Daily Reflections (%s):</string>
+    <string name="ai_reasoning">AI Reasoning</string>
+    <string name="loading_reflections">Getting daily reflections from Gemini&#8230;</string>
 </resources>

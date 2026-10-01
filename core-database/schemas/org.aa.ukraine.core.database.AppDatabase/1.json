@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e1f1e4b015c37ea963b3bf0bc6a65902",
+    "identityHash": "bc6cbcd4d113eb8d5feb3b82e5f7c616",
     "entities": [
       {
         "tableName": "Main",
@@ -27,11 +27,60 @@
             "uid"
           ]
         }
+      },
+      {
+        "tableName": "daily_reflections",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `languageCode` TEXT NOT NULL, `title` TEXT NOT NULL, `quote` TEXT NOT NULL, `quoteSource` TEXT NOT NULL, `commentary` TEXT NOT NULL, PRIMARY KEY(`date`, `languageCode`))",
+        "fields": [
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "languageCode",
+            "columnName": "languageCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quote",
+            "columnName": "quote",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quoteSource",
+            "columnName": "quoteSource",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "commentary",
+            "columnName": "commentary",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "date",
+            "languageCode"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e1f1e4b015c37ea963b3bf0bc6a65902')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bc6cbcd4d113eb8d5feb3b82e5f7c616')"
     ]
   }
 }

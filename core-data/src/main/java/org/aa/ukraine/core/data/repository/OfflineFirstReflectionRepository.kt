@@ -1,5 +1,6 @@
 package org.aa.ukraine.core.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -37,7 +38,7 @@ class OfflineFirstReflectionRepository @Inject constructor(
             val existing = reflectionDao.getReflectionDirect(date, langCode)
             if (existing != null) return@withContext true
 
-            // Connecting to the remote Gemini 3 Flash model via Firebase AI Logic
+            // Connecting to the remote Gemini model via Google AI Client
             val networkData = aiClient.fetchDailyReflection(date, langCode)
 
             // Perform an atomic write to the local SQLite database.
@@ -53,7 +54,7 @@ class OfflineFirstReflectionRepository @Inject constructor(
             )
             true
         } catch (e: Exception) {
-            android.util.Log.e("ReflectionRepository", "Gemini synchronization error: ${e.localizedMessage}")
+            Log.e("ReflectionRepository", "Gemini synchronization error: ${e.localizedMessage}")
             false
         }
     }

@@ -1,6 +1,5 @@
 package org.aa.ukraine.feature.main.ui
 
-import android.icu.text.SimpleDateFormat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,13 +7,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.serialization.InternalSerializationApi
 import org.aa.ukraine.core.data.repository.ReflectionRepository
 import org.aa.ukraine.core.network.model.NetworkReflection
+import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
@@ -25,13 +23,12 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     // Internal state for tracking loading/synchronization with Gemini
     private val _isSyncing = MutableStateFlow(false)
-    //val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
 
     // Dynamic parameters of the request to AI: Pair(Date_ISO, Language_Code)
     private val _reflectionParams = MutableStateFlow(Pair("", ""))
 
     // Jet Flow: automatically switches Room Flow when parameters change
-    @OptIn(ExperimentalCoroutinesApi::class, InternalSerializationApi::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     val dailyReflection: StateFlow<NetworkReflection?> = _reflectionParams
         .flatMapLatest { (date, lang) ->
             reflectionRepository.getDailyReflectionStream(date, lang)

@@ -23,3 +23,5 @@ val AAMutedTextDark = Color(0xFF9E9E9E)       // Gray text for secondary data
 // --- SPECIFIC COLORS ---
 val AASiteHeaderBackground = Color(0xFFF4F0EE)  // Background color of official site header
 val AALogoBackground = Color(0xFF085080)        // Background color of official logo
+
+val AATertiaryContainer = Color(0xFFCAB8A2)

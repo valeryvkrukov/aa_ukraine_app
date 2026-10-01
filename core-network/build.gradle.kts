@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.secrets)
 }
 
 android {
@@ -18,7 +19,7 @@ android {
 
     buildFeatures {
         aidl = false
-        buildConfig = false
+        buildConfig = true
         shaders = false
     }
 
@@ -35,11 +36,10 @@ kotlin {
 }
 
 dependencies {
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.ai)
-    implementation(libs.firebase.appcheck.debug)
+    implementation(libs.generativeai)
 
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
 
